@@ -4,11 +4,14 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    let rowHeight = 83;
-    let row = Math.floor(Math.random()*3);
-    let column = Math.floor(Math.random()*6 + 1) *101;
+    const rowHeight = 83;
+    const minSpeed = 50;
 
-    this.speed = Math.floor(Math.random()*100) + 50;
+    // sets random values for allowed rows/columns
+    const row = Math.floor(Math.random()*3);
+    const column = Math.floor(Math.random()*6 + 1) *101;
+
+    this.speed = Math.floor(Math.random()*100) + minSpeed;
     this.x = column;
     this.y = rowHeight * row + 60;
     // The image/sprite for our enemies, this uses
@@ -70,16 +73,19 @@ var Player = function() {
 
 };
 
+// Sets player at the starting position
 Player.prototype.resetStartPos = function() {
     this.x = this.startPosX;
     this.y = this.startPosY;
     this.update();
 };
 
+// Draws player on screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//handles user keyboard input for controlling player movement
 Player.prototype.handleInput = function(key) {
 
     //checks if player is out of bounds and then updates position based on key
@@ -103,6 +109,7 @@ Player.prototype.handleInput = function(key) {
 
 };
 
+//updates position of player to be rendered
 Player.prototype.update = function() {
     this.x = this.x;
     this.y = this.y;
