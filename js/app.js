@@ -1,8 +1,16 @@
+
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    let rowHeight = 83;
+    let row = Math.floor(Math.random()*3);
+    let column = Math.floor(Math.random()*6 + 1) *101;
 
+    this.speed = Math.floor(Math.random()*100) + 50;
+    this.x = column;
+    this.y = rowHeight * row + 60;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -14,6 +22,31 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    //player position + 20px so that bug "looks" it player further in sprite
+    let playerPosX = player.x+20;
+
+    //adds 9 to adjust for enemy and player starting pos difference
+    let playerPosY = player.y+9;
+
+    //boolean indicating if playerPosX is within enemy's before/after x position
+    let playerCollisionX = playerPosX <= this.x + this.speed && playerPosX >= this.x;
+
+    //boolean indicating if player pos
+    let playerCollisionY = playerPosY === this.y;
+
+    //updates enemy position
+    this.x = this.x + this.speed * dt;
+
+    //checks if player has collided
+    if (playerCollisionY && playerCollisionX) {
+        player.resetStartPos();
+    }
+
+    //checks if enemy is outOfBounds and places at beginning of screen
+    if (this.x > 505) {
+        this.x = -101;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -24,13 +57,80 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+    this.sprite = 'images/char-horn-girl.png';
+    this.startPosX = 202;
+    this.startPosY = 300;
+    this.colWidth = 101;
+    this.rowHeight = 83;
+
+    //sets player's initial starting position
+    this.x = this.startPosX;
+    this.y = this.startPosY;
+
+};
+
+Player.prototype.resetStartPos = function() {
+    this.x = this.startPosX;
+    this.y = this.startPosY;
+    this.update();
+};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.handleInput = function(key) {
+
+    //checks if player is out of bounds and then updates position based on key
+    //entry
+    switch (key) {
+        case 'left':
+            this.x === 0 || (this.x = this.x - this.colWidth);
+            break;
+        case 'up':
+            this.y === -32 || (this.y = this.y - this.rowHeight);
+            break;
+        case 'right':
+            this.x === 404 || (this.x = this.x + this.colWidth);
+            break;
+        case 'down':
+            this.y >= 383 || (this.y = this.y + this.rowHeight);
+            break;
+    }
+
+    this.update();
+
+};
+
+Player.prototype.update = function() {
+    this.x = this.x;
+    this.y = this.y;
+
+    //player is in water, return to starting position
+    if(this.y === -32) {
+
+        window.setTimeout(
+            function() {
+                player.resetStartPos();
+            }
+        ,250);
+
+    }
+};
+
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+let allEnemies = [];
+for (let e = 0; e <=4; e++) {
+    allEnemies.push(new Enemy());
+}
 
+let player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
