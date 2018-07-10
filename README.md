@@ -10,3 +10,5 @@ frontend-nanodegree-arcade-game
 ### 2. How to Play
  * Navigation: use the keyboard arrows to navigate player
  * Objective: try to cross the road without any collisions from enemies.  Player wins if they get to the water.
+
+ _contributors: Udacity starter code https://github.com/udacity/frontend-nanodegree-arcade-game_
