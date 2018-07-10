@@ -5,12 +5,12 @@ Students should use this [rubric](https://review.udacity.com/#!/projects/2696458
 
 For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
 
-##Instructions:
+## Instructions:
 
-###1. Run Game
-..*fork game in GitHub
-..*open index.html in browser
+### 1. Run Game
+..* fork game in GitHub
+..* open index.html in browser
 
-###2. How to Play
-..*Navigation: use the keyboard arrows to navigate player
-..*Objective: try to cross the road without any collisions from enemies.  Player wins if they get to the water.
+### 2. How to Play
+..* Navigation: use the keyboard arrows to navigate player
+..* Objective: try to cross the road without any collisions from enemies.  Player wins if they get to the water.
